@@ -1,6 +1,6 @@
 resource "fastly_ngwaf_workspace_rule" "BlockRequestsFromKnownBadUserAgents" {
     description     = "Block Requests from Known Bad User Agents"
-    enabled         = false
+    enabled         = true
     group_operator  = "any"
     request_logging = "sampled"
     type            = "request"
