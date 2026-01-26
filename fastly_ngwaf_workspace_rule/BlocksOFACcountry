@@ -1,0 +1,68 @@
+resource "fastly_ngwaf_workspace_rule" "BlocksOFACcountry" {
+    description     = "BlocksOFACcountry"
+    enabled         = true
+    group_operator  = "any"
+    request_logging = "sampled"
+    type            = "request"
+    workspace_id    = fastly_ngwaf_workspace.my_ngwaf_workspace.id
+
+    action {
+        allow_interactive = false
+        deception_type    = null
+        redirect_url      = null
+        response_code     = 0
+        signal            = null
+        type              = "block"
+    }
+
+    condition {
+        field    = "country"
+        operator = "equals"
+        value    = "SY"
+    }
+    condition {
+        field    = "country"
+        operator = "equals"
+        value    = "BY"
+    }
+    condition {
+        field    = "country"
+        operator = "equals"
+        value    = "MM"
+    }
+    condition {
+        field    = "country"
+        operator = "equals"
+        value    = "KP"
+    }
+    condition {
+        field    = "country"
+        operator = "equals"
+        value    = "IQ"
+    }
+    condition {
+        field    = "country"
+        operator = "equals"
+        value    = "CD"
+    }
+    condition {
+        field    = "country"
+        operator = "equals"
+        value    = "SD"
+    }
+    condition {
+        field    = "country"
+        operator = "equals"
+        value    = "IR"
+    }
+    condition {
+        field    = "country"
+        operator = "equals"
+        value    = "LR"
+    }
+    condition {
+        field    = "country"
+        operator = "equals"
+        value    = "ZW"
+    }
+}
