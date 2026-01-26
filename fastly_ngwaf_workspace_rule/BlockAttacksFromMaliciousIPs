@@ -1,0 +1,80 @@
+resource "fastly_ngwaf_workspace_rule" "BlokcAttacksFromMaliciousIPs" {
+    description     = "Block Attacks from Malicious IPs"
+    enabled         = true
+    group_operator  = "all"
+    request_logging = "sampled"
+    type            = "request"
+    workspace_id    = fastly_ngwaf_workspace.my_ngwaf_workspace.id
+
+    action {
+        allow_interactive = false
+        deception_type    = null
+        redirect_url      = null
+        response_code     = 0
+        signal            = null
+        type              = "block"
+    }
+
+    multival_condition {
+        field          = "signal"
+        group_operator = "any"
+        operator       = "exists"
+
+        condition {
+            field    = "signal_id"
+            operator = "equals"
+            value    = "TORNODE"
+        }
+        condition {
+            field    = "signal_id"
+            operator = "equals"
+            value    = "SIGSCI-IP"
+        }
+        condition {
+            field    = "signal_id"
+            operator = "equals"
+            value    = "SANS"
+        }
+    }
+    multival_condition {
+        field          = "signal"
+        group_operator = "any"
+        operator       = "exists"
+
+        condition {
+            field    = "signal_id"
+            operator = "equals"
+            value    = "USERAGENT"
+        }
+        condition {
+            field    = "signal_id"
+            operator = "equals"
+            value    = "BACKDOOR"
+        }
+        condition {
+            field    = "signal_id"
+            operator = "equals"
+            value    = "CMDEXE"
+        }
+        condition {
+            field    = "signal_id"
+            operator = "equals"
+            value    = "SQLI"
+        }
+        condition {
+            field    = "signal_id"
+            operator = "equals"
+            value    = "TRAVERSAL"
+        }
+        condition {
+            field    = "signal_id"
+            operator = "equals"
+            value    = "XSS"
+        }
+        condition {
+            field    = "signal_id"
+            operator = "equals"
+            value    = "LOG4J-JNDI"
+        }
+    }
+}
